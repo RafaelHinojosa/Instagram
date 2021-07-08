@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // If user already logged in, go to main activity
         if(ParseUser.getCurrentUser() != null) {
-            goMainActivity();
+            goFeedActivity();
         }
 
         // Associate variables with components in the view
@@ -73,15 +73,15 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Credentials are not correct!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                goMainActivity();
+                goFeedActivity();
                 Toast.makeText(LoginActivity.this, "Success!", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    // User goes to MainActivity class
-    private void goMainActivity() {
-        Intent i = new Intent(this, MainActivity.class);
+    // User goes to FeedActivity class
+    private void goFeedActivity() {
+        Intent i = new Intent(this, FeedActivity.class);
         startActivity(i);
     }
 }
