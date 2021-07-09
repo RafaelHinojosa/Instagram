@@ -14,6 +14,7 @@ import com.example.instagram.databinding.ActivityLoginBinding;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
+import com.parse.SignUpCallback;
 
 // Class for login activity. Connects with Parse to give a user access
 public class LoginActivity extends AppCompatActivity {
@@ -23,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText etUsername;
     EditText etPassword;
     Button btnLogin;
+    Button btnSignUp;
 
     // Starts the activity
     @Override
@@ -43,9 +45,9 @@ public class LoginActivity extends AppCompatActivity {
         etUsername = binding.etUsername;
         etPassword = binding.etPassword;
         btnLogin = binding.btnLogin;
+        btnSignUp = binding.btnSignup;
 
-
-        // Set onClickListener to the button
+        // Login Click Listener
         btnLogin.setOnClickListener(new View.OnClickListener() {
             // Calls a function to connect with parse
             @Override
@@ -53,6 +55,22 @@ public class LoginActivity extends AppCompatActivity {
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
                 loginUser(username, password);
+            }
+        });
+
+        // Sign Up Click Listener
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
+            // Calls a function to connect with parse
+            @Override
+            public void onClick(View v) {
+                String username = etUsername.getText().toString();
+                String password = etPassword.getText().toString();
+                if(!username.isEmpty() && !password.isEmpty()) {
+                    signUpUser(username, password);
+                }
+                else {
+                    Toast.makeText(LoginActivity.this, "Username and password can't be empty", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -75,6 +93,31 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 goFeedActivity();
                 Toast.makeText(LoginActivity.this, "Success!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    // Creates a new user if not registered in the database
+    private void signUpUser(String username, String password) {
+        // Create the ParseUser
+        ParseUser user = new ParseUser();
+
+        // Set core properties
+        user.setUsername(username);
+        user.setPassword(password);
+
+        // Invoke signUpInBackground
+        user.signUpInBackground(new SignUpCallback() {
+            public void done(ParseException e) {
+                // Could not register user
+                if (e != null) {
+                    Log.e(TAG, "Could not register user");
+                    Toast.makeText(LoginActivity.this, "Username already taken", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                // User registration with success!
+                goFeedActivity();
+                Toast.makeText(LoginActivity.this, "Welcome Back " + username + "!", Toast.LENGTH_SHORT).show();
             }
         });
     }

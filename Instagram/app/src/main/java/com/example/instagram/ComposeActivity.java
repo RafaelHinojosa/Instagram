@@ -64,20 +64,8 @@ public class ComposeActivity extends AppCompatActivity {
         btnCaptureImage = binding.btnCaptureImage;
         ivPostImage = binding.ivPostImage;
         btnSubmit = binding.btnSubmit;
-        btnLogout = binding.btnLogout;
 
-        // On Click Listener to Log Out
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // If user clicks, Logs Out and goes back (through an intent) to LoginActivity
-                ParseUser.logOut();
-                Intent i = new Intent(ComposeActivity.this, LoginActivity.class);
-                startActivity(i);
-            }
-        });
-
-        //
+        // Button Listener to launch the camera and take a picture
         btnCaptureImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

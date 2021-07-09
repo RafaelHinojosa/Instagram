@@ -2,6 +2,7 @@ package com.example.instagram;
 
 import android.graphics.Bitmap;
 
+// Auxiliary class to scale an image before compressing it
 public class BitmapScaler
 {
     // Scale and maintain aspect ratio given a desired width

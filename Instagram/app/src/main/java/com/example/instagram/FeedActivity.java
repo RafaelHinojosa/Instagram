@@ -17,6 +17,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class FeedActivity extends AppCompatActivity {
     RecyclerView rvPosts;
     private SwipeRefreshLayout swipeContainer;
     FloatingActionButton btnCompose;  // Temporal
+    Button btnLogout;
 
     // Initializes the Feed Activity
     @Override
@@ -51,10 +53,22 @@ public class FeedActivity extends AppCompatActivity {
         rvPosts = binding.rvPosts;
         swipeContainer = binding.swipeContainer;
         btnCompose = binding.btnCompose;
+        btnLogout = binding.btnLogout;
 
         // Recycler View setup
         rvPosts.setLayoutManager(new LinearLayoutManager(this));
         rvPosts.setAdapter(adapter);
+
+        // On Click Listener to Log Out
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // If user clicks, Logs Out and goes back (through an intent) to LoginActivity
+                ParseUser.logOut();
+                Intent i = new Intent(FeedActivity.this, LoginActivity.class);
+                startActivity(i);
+            }
+        });
 
         // OnClickListener to compose a new post
         btnCompose.setOnClickListener(new View.OnClickListener() {
