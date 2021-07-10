@@ -2,7 +2,7 @@
 
 **Instagram Clone** is a photo sharing app using Parse as its backend.
 
-Time spent: **10** hours spent in total
+Time spent: **13** hours spent in total
 
 ## User Stories
 
@@ -21,14 +21,14 @@ The following **required** functionality is completed:
 
 The following **stretch** features are implemented:
 
-- [ ] Style the login page to look like the real Instagram login page.
-- [ ] Style the feed to look like the real Instagram feed.
+- [x] Style the login page to look like the real Instagram login page.
+- [x] Style the feed to look like the real Instagram feed.
 - [ ] User can load more posts once he or she reaches the bottom of the feed using endless scrolling.
-- [ ] User should switch between different tabs using fragments and a Bottom Navigation View.
-  - [ ] Feed Tab (to view all posts from all users)
-  - [ ] Capture Tab (to make a new post using the Camera and Photo Gallery)
-  - [ ] Profile Tab (to view only the current user's posts, in a grid)
-- [ ] Show the username and creation time for each post
+- [x] User should switch between different tabs using fragments and a Bottom Navigation View.
+  - [x] Feed Tab (to view all posts from all users)
+  - [x] Capture Tab (to make a new post using the Camera and Photo Gallery)
+  - [x] Profile Tab (to view only the current user's posts, in a grid)
+- [x] Show the username and creation time for each post
 - User Profiles:
   - [ ] Allow the logged in user to add a profile photo
   - [ ] Display the profile photo with each post
@@ -47,14 +47,15 @@ The following **additional** features are implemented:
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
 1. I'd like to learn about fragments and their implementations (can be possible because of the stretch stories)
-2. Better way to take photos with the camera and resize them. 
+2. Better way to take photos with the camera and resize them.
 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
 [Walkthrough MVP](https://imgur.com/H3LDQZS)
-<img src='http://i.imgur.com/H3LDQZS.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+[Walkthrough Bonus](https://imgur.com/a/zciHTPj)
+<img src='http://i.imgur.com/a/zciHTPj.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [Kap](https://getkap.co/).
 
@@ -68,6 +69,8 @@ List an 3rd party libraries, icons, graphics, or other assets you used in your a
 ## Notes
 
 Describe any challenges encountered while building the app.
+
+The most challenging thing was implementing how to resize and compress the images and understanding that piece of code, as well as the code in the activity of taking a photo to compose a post.
 
 ## License
 
