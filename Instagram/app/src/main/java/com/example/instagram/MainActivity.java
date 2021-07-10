@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.example.instagram.fragments.ComposeFragment;
 import com.example.instagram.fragments.FeedFragment;
 import com.example.instagram.fragments.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.parse.ParseUser;
 
 // Class where we will see all the posts. Is our Instagram Feed
 public class MainActivity extends AppCompatActivity {
@@ -47,8 +49,14 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new ComposeFragment();
                         break;
                     case R.id.action_profile:
+                        fragment = new ProfileFragment();
+                        break;
+                    case R.id.action_logout:
                     default:
                         fragment = new ProfileFragment();
+                        ParseUser.logOut();
+                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                        startActivity(intent);
                         break;
                 }
                 // Replace the flContainer with the selected fragment layout

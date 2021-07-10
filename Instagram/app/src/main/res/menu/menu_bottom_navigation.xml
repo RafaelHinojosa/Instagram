@@ -17,4 +17,9 @@
         android:icon="@drawable/ic_baseline_person_24"
         android:title="Profile"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/action_logout"
+        android:icon="@drawable/ic_baseline_login_24"
+        android:title="Log Out"
+        app:showAsAction="always" />
 </menu>
