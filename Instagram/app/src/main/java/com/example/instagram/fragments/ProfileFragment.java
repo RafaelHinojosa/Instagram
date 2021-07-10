@@ -2,6 +2,7 @@ package com.example.instagram.fragments;
 
 import android.util.Log;
 
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -22,6 +23,7 @@ public class ProfileFragment extends FeedFragment {
     // Gets the posts of the actual user
     @Override
     protected void populateFeed() {
+        rvPosts.setLayoutManager(new GridLayoutManager(getContext(), 3));
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
         query.whereEqualTo(Post.KEY_USER, ParseUser.getCurrentUser());
