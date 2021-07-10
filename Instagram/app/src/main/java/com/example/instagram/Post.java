@@ -21,6 +21,7 @@ public class Post extends ParseObject {
     public static final String KEY_DESCRIPTION = "description";
     public static final String KEY_IMAGE = "image";
     public static final String KEY_USER = "user";
+    public static final String CREATED_AT = "createdAt";
 
     // For the parcel library, we MUST implement an empty constructor and write @Parcel on top of the class
     public Post() {}

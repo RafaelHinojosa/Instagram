@@ -124,7 +124,7 @@ public class LoginActivity extends AppCompatActivity {
 
     // User goes to FeedActivity class
     private void goFeedActivity() {
-        Intent i = new Intent(this, FeedActivity.class);
+        Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
     }
 }

@@ -109,7 +109,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
             tvUsername.setText(post.getUser().getUsername());
             // Post Image
             ParseFile postImage = post.getImage();
-            if(postImage != null) {
+            if (postImage != null) {
                 Glide.with(context).load(postImage.getUrl()).fitCenter().into(ivPostImage);
             }
             // Description
@@ -133,7 +133,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
             // Get the clicked post
             int position = getAdapterPosition();
             // Valid Position
-            if(position != RecyclerView.NO_POSITION) {
+            if (position != RecyclerView.NO_POSITION) {
                 Post post = posts.get(position);
                 Intent intent = new Intent(context, DetailsActivity.class);
                 // Doing the post parcelable means converting its attributes to a String

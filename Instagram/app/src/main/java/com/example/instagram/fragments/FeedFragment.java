@@ -1,84 +1,63 @@
-package com.example.instagram;
+package com.example.instagram.fragments;
 
-import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.instagram.databinding.ActivityFeedBinding;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.example.instagram.Post;
+import com.example.instagram.PostsAdapter;
+import com.example.instagram.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-// Class where we will see all the posts. Is our Instagram Feed
-public class FeedActivity extends AppCompatActivity {
+public class FeedFragment extends Fragment {
 
-    private String TAG = "FeedActivity";
+    private String TAG = "FeedFragment";
 
-    List<Post> posts;
-    PostsAdapter adapter;
-    RecyclerView rvPosts;
-    private SwipeRefreshLayout swipeContainer;
-    FloatingActionButton btnCompose;  // Temporal
-    Button btnLogout;
+    protected List<Post> posts;
+    protected PostsAdapter adapter;
+    protected RecyclerView rvPosts;
+    protected SwipeRefreshLayout swipeContainer;
 
-    // Initializes the Feed Activity
+    public FeedFragment() {
+        // Required empty public constructor
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_feed, container, false);
+    }
 
-        // Binding
-        ActivityFeedBinding binding = ActivityFeedBinding.inflate(getLayoutInflater());
-        View view = binding.getRoot();
-        setContentView(view);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        // Initialize List and Adapter
+        rvPosts = view.findViewById(R.id.rvPosts);
+        swipeContainer = view.findViewById(R.id.swipeContainer);
+
         posts = new ArrayList<>();
-        adapter = new PostsAdapter(this, posts);
-
-        // Associates values to components in activity_feed.xml
-        rvPosts = binding.rvPosts;
-        swipeContainer = binding.swipeContainer;
-        btnCompose = binding.btnCompose;
-        btnLogout = binding.btnLogout;
+        adapter = new PostsAdapter(getContext(), posts);
 
         // Recycler View setup
-        rvPosts.setLayoutManager(new LinearLayoutManager(this));
+        rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
         rvPosts.setAdapter(adapter);
-
-        // On Click Listener to Log Out
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // If user clicks, Logs Out and goes back (through an intent) to LoginActivity
-                ParseUser.logOut();
-                Intent i = new Intent(FeedActivity.this, LoginActivity.class);
-                startActivity(i);
-            }
-        });
-
-        // OnClickListener to compose a new post
-        btnCompose.setOnClickListener(new View.OnClickListener() {
-            // Goes to compose activity to make a new post
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(FeedActivity.this, ComposeActivity.class);
-                startActivity(i);
-            }
-        });
 
         // Sets a Refresh Listener to the Swipe Container
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -88,21 +67,19 @@ public class FeedActivity extends AppCompatActivity {
                 swipeContainer.setRefreshing(false);
             }
         });
-        // Configure the refreshing colors
         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
 
-        // Get the posts to populate the feed
         populateFeed();
     }
 
     // Initial population that will save last 20 posts in the Database to the list and the recycler view
-    private void populateFeed() {
+    protected void populateFeed() {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
-        query.addDescendingOrder("createdAt");
+        query.addDescendingOrder(Post.CREATED_AT);
         query.setLimit(20);
         query.findInBackground(new FindCallback<Post>() {
             // Result of the call to Parse
